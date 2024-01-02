@@ -1,6 +1,6 @@
 {
   "name": "@opine-official/authentication",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "The authentication module for Opine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
