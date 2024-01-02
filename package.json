@@ -2,14 +2,15 @@
   "name": "@opine-official/authentication",
   "version": "1.2.4",
   "description": "The authentication module for Opine",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Opine-official/opine-official-authentication.git"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +22,8 @@
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.5",
     "jsonwebtoken": "^9.0.2"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
