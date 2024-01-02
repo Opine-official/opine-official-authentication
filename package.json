@@ -3,6 +3,7 @@
   "version": "1.2.5",
   "description": "The authentication module for Opine",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "repository": {
     "type": "git",
