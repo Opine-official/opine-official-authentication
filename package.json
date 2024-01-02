@@ -3,6 +3,7 @@
   "version": "1.2.1",
   "description": "The authentication module for Opine",
   "main": "src/index.ts",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Opine-official/opine-official-authentication.git"
