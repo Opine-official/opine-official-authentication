@@ -1,4 +1,13 @@
-const jwt = require("jsonwebtoken");
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any;
+    }
+  }
+}
 
 export function verifyToken(token: string, secretKey: string): any {
   try {
@@ -6,4 +15,24 @@ export function verifyToken(token: string, secretKey: string): any {
   } catch (err) {
     throw new Error("Invalid token");
   }
+}
+
+export function authenticateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.cookies["token"];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(
+    token,
+    process.env.JWT_SECRET as string,
+    (err: Error | null, user: any) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    }
+  );
 }
