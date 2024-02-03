@@ -36,3 +36,23 @@ export function authenticateToken(
     }
   );
 }
+
+export function authenticateAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.cookies["adminToken"];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(
+    token,
+    process.env.ADMIN_JWT_SECRET as string,
+    (err: Error | null, user: any) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    }
+  );
+}
