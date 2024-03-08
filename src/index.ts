@@ -28,7 +28,7 @@ export function authenticateToken(
 
   jwt.verify(
     token,
-    process.env.JWT_SECRET as string,
+    process.env.USER_JWT_SECRET as string,
     (err: Error | null, user: any) => {
       if (err) return res.sendStatus(403);
       req.user = user;
@@ -55,4 +55,23 @@ export function authenticateAdmin(
       next();
     }
   );
+}
+
+export function authenticateRole(role: string) {
+  return function (req: Request, res: Response, next: NextFunction) {
+    const token = req.cookies[`${role}Token`];
+
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(
+      token,
+      process.env[`${role.toUpperCase()}_JWT_SECRET`] as string,
+      (err: Error | null, user: any) => {
+        if (err) return res.sendStatus(403);
+        if (user.role !== role) return res.sendStatus(403);
+        req.user = user;
+        next();
+      }
+    );
+  };
 }
